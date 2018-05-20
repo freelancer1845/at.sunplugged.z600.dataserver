@@ -1,0 +1,71 @@
+<p-dialog header="CSV Data" [(visible)]="display" modal="modal" [responsive]="true" [minWidth]="200" [minY]="70"  >
+  <p-table #sessiontDt [value]="dataPoints" [scrollable]="true" [rows]="10" [virtualScroll]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of dataCols">
+          {{col.header}}
+        </th>>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+      <tr>
+          <td *ngFor="let col of dataCols">
+              {{data[col.field]}}
+      </td>
+      </tr>
+    </ng-template>
+
+  </p-table>  
+  
+
+
+        <p-footer>
+            <button type="button" pButton icon ="fa-copy" (click)="copyToClipboard()" label="Copy To Clipboard"></button>
+            <button type="button" pButton icon="fa-close" (click)="display=false" label="Close"></button>
+        </p-footer>
+</p-dialog>
+
+
+<p-table #dt [value]="sessions" [paginator]="true" [rows]="30">
+
+  <ng-template pTemplate="caption">
+    <div class="calendarfilter" style="text-align: left">
+
+      <span>Start Date</span>
+      <p-calendar #startCalendar [showIcon]="true" (onSelect)="onStartDateSelected($event, dt)"></p-calendar>
+
+      <span>
+        End Date
+        <p-calendar #endCalendar [showIcon]="true" (onSelect)="onEndDateSelected($event, dt)"></p-calendar>
+      </span>
+
+      <p-button label="Clear Filter" (onClick)="onClearFilterClick(startCalendar, endCalendar, dt)"></p-button>
+
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Options</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-session>
+    <tr [pContextMenuRow]="rowData">
+      <td>{{session.sessionId}}</td>
+      <td>{{session.startTime | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>{{session.endTime | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>
+        <span>
+            <p-button (onClick)="downloadSession(session, progress)" icon="fa fa-fw fa-download" label="Download"></p-button>
+        </span>
+        
+        <p-progressBar #progress mode="indeterminate" [style]="{'display':'none'}"></p-progressBar>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>

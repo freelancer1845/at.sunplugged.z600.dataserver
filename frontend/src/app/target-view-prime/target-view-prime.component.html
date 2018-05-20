@@ -1,0 +1,184 @@
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<p-table #targetDt [value]="targets">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>LotID</th>
+      <th>Active</th>
+      <th>Creator</th>
+      <th>Cu %</th>
+      <th>In %</th>
+      <th>Ga %</th>
+      <th>Cr %</th>
+      <th>Work Done</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td>{{data.name}}</td>
+      <td>{{data.lotId}}</td>
+      <td><span *ngIf="data.active">Active</span><span *ngIf="data.active==false">Not Active</span></td>
+      <td>{{data.createdBy}}</td>
+      <td>{{data.cuPer}}</td>
+      <td>{{data.inPer}}</td>
+      <td>{{data.gaPer}}</td>
+      <td>{{data.crPer}}</td>
+      <td>{{data.work}}</td>
+      <td>
+        <p-button (onClick)="editTarget(data)" icon="fa fa-fw fa-edit" label="Edit"></p-button>
+        <p-button (onClick)="deleteTarget(data)" icon="fa fa-fw fa-trash" label="Delete"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+<p-button label="New Target" (onClick)="newTarget()"></p-button>
+
+
+
+<p-dialog header="Target Dialog" [(visible)]="displayTargetDialog" modal="modal" [responsive]="true" [minWidth]="600" [minY]="70"
+  [formGroup]="userForm">
+
+
+
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="lotId-input" type="text" pInputText [(ngModel)]="targetToEdit.lotId" formControlName="lotIdInput">
+            <label for="lotId-input">LotID</label>
+          </span>
+
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['lotIdInput'].valid&&userForm.controls['lotIdInput'].dirty">
+            <i class="fa fa-close"></i>
+            LotId is required!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row" styl>
+        <div class="ui-g-12 ui-md-12">
+          <p-checkbox label="Active" [(ngModel)]="targetToEdit.active" formControlName="active" binary="true" value="true"></p-checkbox>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="createdBy-input" type="text" pInputText [(ngModel)]="targetToEdit.createdBy" formControlName="createdBy">
+            <label for="createdBy-input">Created By</label>
+          </span>
+
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['createdBy'].valid&&userForm.controls['createdBy'].dirty">
+            <i class="fa fa-close"></i>
+            Name of the creator is Required!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="name-input" type="text" pInputText [(ngModel)]="targetToEdit.name" formControlName="name">
+            <label for="name-input">Name</label>
+          </span>
+        </div>
+
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['name'].valid&&userForm.controls['name'].dirty">
+            <i class="fa fa-close"></i>
+            Name is Required!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+
+          <span class="ui-float-label">
+            <input id="cu-input" type="text" pInputText [(ngModel)]="targetToEdit.cuPer" formControlName="cuPer">
+            <label for="cu-input">Cu %</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['cuPer'].valid&&userForm.controls['cuPer'].dirty">
+            <i class="fa fa-close"></i>
+            CuPer is required or has wrong format(0.0-100.0)!
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="in-input" type="text" pInputText [(ngModel)]="targetToEdit.inPer" formControlName="inPer">
+            <label for="in-input">In %</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['inPer'].valid&&userForm.controls['inPer'].dirty">
+            <i class="fa fa-close"></i>
+            InPer is required or has wrong format(0.0-100.0)!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="ga-input" type="text" pInputText [(ngModel)]="targetToEdit.gaPer" formControlName="gaPer">
+            <label for="ga-input">Ga %</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['gaPer'].valid&&userForm.controls['gaPer'].dirty">
+            <i class="fa fa-close"></i>
+            GaPer is required or has wrong format(0.0-100.0)!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="cr-input" type="text" pInputText [(ngModel)]="targetToEdit.crPer" formControlName="crPer">
+            <label for="cr-input">Cr %</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['crPer'].valid&&userForm.controls['crPer'].dirty">
+            <i class="fa fa-close"></i>
+            CrPer is required or has wrong format(0.0-100.0)!
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-12 ui-md-7">
+          <span class="ui-float-label">
+            <input id="work-input" type="text" pInputText [(ngModel)]="targetToEdit.work" formControlName="work">
+            <label for="work-input">Work Done</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['work'].valid&&userForm.controls['work'].dirty">
+            <i class="fa fa-close"></i>
+            Work is required or has wrong format!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button type="button" pButton icon="fa-ok" (click)="saveTarget()" label="Save" [disabled]="!userForm.valid"></button>
+    <button type="button" pButton icon="fa-cancel" (click)="cancelTargetDialog()" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
