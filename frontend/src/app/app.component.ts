@@ -9,7 +9,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 })
 export class AppComponent {
 
-  private items: MenuItem[];
+  items: MenuItem[];
   title = 'app';
 
   ngOnInit() {
