@@ -5,7 +5,7 @@
 
 	<groupId>at.sunplugged.z600.dataserver</groupId>
 	<artifactId>z600-dataserver</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<packaging>pom</packaging>
 	
 	<modules>

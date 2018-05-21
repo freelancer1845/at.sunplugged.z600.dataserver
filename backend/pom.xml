@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>at.sunplugged.z600.dataserver</groupId>
 		<artifactId>z600-dataserver</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>z600-datserver-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>z600-dataserver-backend</name>
 	<description>Demo project for Spring Boot</description>
