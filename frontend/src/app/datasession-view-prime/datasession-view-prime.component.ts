@@ -3,7 +3,7 @@ import { DatasessionsService } from '../datasession/datasessions.service';
 import { Session } from '../models/session.model';
 import { Table } from 'primeng/table';
 import { Calendar } from 'primeng/calendar';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, ConfirmationService } from 'primeng/api';
 
 import { Datapoint } from '../models/datapoint.model';
 import { saveAs } from 'file-saver';
@@ -20,20 +20,14 @@ import { DatePipe } from '@angular/common';
 })
 export class DatasessionViewPrimeComponent implements OnInit {
 
-  display: boolean = false;
-  csvText: string;
-  dataPoints: Datapoint[];
-  dataCols: any[];
 
-  items: MenuItem[];
-  selectedSession: Session;
 
   sessions: Session[];
   startDate: Date;
   endDate: Date;
 
 
-  constructor(private dataService: DatasessionsService, private datePipe: DatePipe) { }
+  constructor(private dataService: DatasessionsService, private datePipe: DatePipe, private confirmationService: ConfirmationService) { }
 
   onStartDateSelected(date: Date, dt: Table) {
     this.startDate = date;
@@ -61,19 +55,6 @@ export class DatasessionViewPrimeComponent implements OnInit {
 
   }
 
-  copyToClipboard() {
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = this.csvText;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-  }
 
  
 
@@ -102,6 +83,17 @@ export class DatasessionViewPrimeComponent implements OnInit {
       }
 
     });
+  }
+
+  deleteSession(session: Session) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this session? Can not be undone!',
+      accept: () => {
+        this.dataService.deleteSession(session);
+        this.sessions = this.sessions.filter(ses => ses === session);
+      }
+    });
+
   }
 
   ngOnInit() {

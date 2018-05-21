@@ -47,4 +47,8 @@ export class DatasessionsService {
     return this.http.get(this.sessionUrl + "/" + session.sessionId);
   }
 
+  public deleteSession(session: Session) {
+    this.http.post(this.sessionUrl + "/delete/" + session.sessionId, "").subscribe();
+  }
+
 }

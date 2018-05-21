@@ -10,7 +10,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 export class AppComponent {
 
   items: MenuItem[];
-  title = 'app';
+  title = 'Z600 Data Server';
 
   ngOnInit() {
     this.items = [

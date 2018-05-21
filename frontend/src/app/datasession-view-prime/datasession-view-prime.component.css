@@ -1,5 +1,12 @@
 
+.calendarfilter {
+    text-align: left;
+    padding: 5px;
+    margin-bottom: 5px;
+}
 
 .ui-calendar-button {
+    
      position: relative !important;
+     
 }

@@ -1,14 +1,13 @@
-<div class="container-fluid">
-  <div class="col-md-offset-1">
-    <h1>
-      Z600 Dataserver
-    </h1>
-  </div>
-  <div style="border-bottom: 8px solid #222222c4">
-      <p-tabMenu [model]="items"></p-tabMenu>
-  </div>
+<div class="ui-widget">
+  <h1>
+      {{title}}
+  </h1>
+    <div class="menu">
+        <p-tabMenu [model]="items"></p-tabMenu>
 
-  <br/>
-  <router-outlet></router-outlet>
-  </div>
+    </div>
+   
+    <router-outlet></router-outlet>
+</div>
+
 
